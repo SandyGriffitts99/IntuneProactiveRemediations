@@ -1,4 +1,4 @@
-name: Test - Proactive Remediations Repository
+name: Proactive Remediations Repository Tests
 on: push
 
 jobs:
