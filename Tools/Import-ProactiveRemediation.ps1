@@ -1,53 +1,18 @@
+#Requires -Modules MSAL.PS
+
 param(
     [Parameter(Mandatory = $false)]
-    [string]$Path = "$((Get-Location).path)"
+    [string]$Path = "$((Get-Location).path)/Repository",
+
+    [Parameter(Mandatory = $false)]
+    [string]$Name
 )
 
-function Test-ProactiveRemediationJSON {
-    param (
-        [Parameter(Mandatory = $true)]
-        [string]$Path
-    )
+# Import the Test-ProactiveRemediationJSON function
+. "$PSScriptRoot/Functions/Test-ProactiveRemediationJSON.ps1"
 
-    # Check if the json is importable
-    try {
-        $json = Get-Content -Path $Path -Raw -ErrorAction Stop | ConvertFrom-Json
-    }
-    catch {
-        Write-Warning -Message "The file '$Path' is not a valid JSON file"
-        return $false
-    }
-
-    # Check if the json has the required properties
-    $RequiredProperties = @(
-        'displayName',
-        'description',
-        'publisher',
-        'runAsAccount',
-        'runAs32Bit',
-        'enforceSignatureCheck'
-    )
-
-    # Loop through and check if the json has the required properties
-    foreach ($RequiredProperty in $RequiredProperties) {
-        if (-not $json.PSObject.Properties.Name.Contains($RequiredProperty)) {
-            Write-Warning -Message "The file '$Path' is missing the required property '$RequiredProperty'"
-            return $false
-        }
-    }
-
-    # ToDo: Check data types of the properties
-
-    # All checks passed
-    return $true
-}
-
-# Mandatory files
-$MandatoryFiles = @(
-    'Detection.ps1'
-    'Remediation.ps1'
-    'ProactiveRemediation.json'
-)
+# Import the Test-ProactiveRemediationDirectory function
+. "$PSScriptRoot/Functions/Test-ProactiveRemediationDirectory.ps1"
 
 # Get all folders recursively
 $folders = Get-ChildItem -Path $Path -Directory -Recurse
@@ -58,23 +23,10 @@ $VaildProactiveRemediations = @()
 # Loop through each folder
 foreach ($folder in $folders) {
 
-    $HasInvalidFiles = $false
-
-    # Get files in the folder
-    $files = Get-ChildItem -Path $folder.FullName -File
-
-    # Check if the folder has all the mandatory files
-    foreach ($MandatoryFile in $MandatoryFiles) {
-        if (-not $files.Name.Contains($MandatoryFile)) {
-            Write-Warning -Message "The folder '$folder' is missing the mandatory file '$MandatoryFile'"
-            $HasInvalidFiles = $true
-            break
-        }
-    }
-
-    # Skip the folder if it has invalid files
-    if ($HasInvalidFiles) {
-        continue
+    # Check if the folder is valid
+    if (!(Test-ProactiveRemediationDirectory -Path $folder.FullName)) {
+        Write-Warning -Message "The folder '$folder' is not a valid Proactive Remediation folder"
+        break
     }
 
     # Check if the folder has a valid ProactiveRemediation.json
@@ -105,8 +57,24 @@ if ($VaildProactiveRemediations.Count -eq 0) {
     break
 }
 
-# Show and prompt the user to select a Proactive Remediation
-$UserSelection = $VaildProactiveRemediations | Select-Object -ExcludeProperty "Path" | Sort-Object -Property Name -Descending | Out-ConsoleGridView -Title 'Select a Proactive Remediation' -OutputMode Single
+# If a name was specified, filter the Proactive Remediations
+if ($Name) {
+    $UserSelection = $VaildProactiveRemediations | Where-Object {$_.Name -like "$Name"}
+
+    # Check if the Proactive Remediation was found
+    if (-not $UserSelection) {
+        Write-Error -Message "No vaild Proactive Remediation found with the name '$Name'"
+        break
+    }
+
+} else {
+    # Import the Out-ConsoleGridView function
+    Add-Type -Path "$((Get-Location).path)/Tools/.bin/Modules/Microsoft.PowerShell.ConsoleGuiTools/0.7.6.0/Microsoft.PowerShell.ConsoleGuiTools.dll"
+    Add-Type -Path "$((Get-Location).path)/Tools/.bin/Modules/Microsoft.PowerShell.ConsoleGuiTools/0.7.6.0/Terminal.Gui.dll"
+
+    # Show and prompt the user to select a Proactive Remediation
+    $UserSelection = $VaildProactiveRemediations | Select-Object -ExcludeProperty "Path" | Sort-Object -Property Name -Descending | Out-ConsoleGridView -Title 'Select a Proactive Remediation' -OutputMode Single
+}
 
 # Check if the user selected a Proactive Remediation
 if ($UserSelection) {
