@@ -1,0 +1,13 @@
+name: Proactive Remediations Repository
+on: push
+
+jobs:
+  test-proactive-remediations-repository:
+    name: Proactive Remediations Repository Test
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository code
+        uses: actions/checkout@v4
+      - name: Perform a Pester test from the command-line
+        shell: pwsh
+        run: ./Tools/Test-ProactiveRemediationRepository.ps1
