@@ -1,4 +1,7 @@
 # IntuneProactiveRemediations
+![Proactive Remediations Repository Tests](https://github.com/dylanmccrimmon/IntuneProactiveRemediations/actions/workflows/test-proactive-remediations-repository.yml/badge.svg)
+
+
 This repository contains scripts for Microsoft Intune Proactive Remediations. It has been designed to be like the 'WinGet' for Intune Proactive Remediations.
 
 ## Tools
