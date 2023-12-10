@@ -8,6 +8,6 @@ jobs:
     steps:
       - name: Check out repository code
         uses: actions/checkout@v4
-      - name: Perform a Pester test from the command-line
+      - name: Perform Proactive Remediations Repository Testing
         shell: pwsh
         run: ./Tools/Test-ProactiveRemediationRepository.ps1
