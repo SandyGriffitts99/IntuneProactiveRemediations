@@ -1,8 +1,9 @@
 # IntuneProactiveRemediations
 ![Proactive Remediations Repository Tests](https://github.com/dylanmccrimmon/IntuneProactiveRemediations/actions/workflows/test-proactive-remediations-repository.yml/badge.svg)
 
-
 This repository contains scripts for Microsoft Intune Proactive Remediations. It has been designed to be like the 'WinGet' for Intune Proactive Remediations.
+
+To import a Microsoft Intune Proactive Remediations, clone this repository and run the ```Import-ProactiveRemediation.ps1``` script from the tools directory.
 
 ## Tools
 There are a few Powershell script that can help with building, adding & validating a Proactive Remediations.
