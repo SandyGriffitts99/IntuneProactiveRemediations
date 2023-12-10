@@ -4,11 +4,11 @@ This repository contains scripts for Microsoft Intune Proactive Remediations. It
 ## Tools
 There are a few Powershell script that can help with build, adding & validating a Proactive Remediation.
 
-- To import a Proactive Remediations to your Intune environment use the ```Import-ProactiveRemediation.ps1``` cmdlet.
-- To create a Proactive Remediations, use the ```New-ProactiveRemediation``` cmdlet.
-- To test if the Proactive Remediations repository is vaild, use the ```Test-ProactiveRemediationRepository``` cmdlet.
+- To import a Proactive Remediations to your Intune environment use the ```Import-ProactiveRemediation.ps1``` script.
+- To create a Proactive Remediations, use the ```New-ProactiveRemediation``` script.
+- To test if the Proactive Remediations Repository is vaild, use the ```Test-ProactiveRemediationRepository``` script.
 
-## Proactive Remediation Structure Standards
+## Proactive Remediation Standards
 Proactive Remediations should be added in the following folder structure
 ```Repository\<Name of Proactive Remediation without whitespace>```
 
