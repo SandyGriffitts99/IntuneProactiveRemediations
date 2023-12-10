@@ -1,0 +1,8 @@
+{
+    "displayName": "Restrict Driver Installation To Administrators",
+    "description": "",
+    "publisher": "Dylan McCrimmon",
+    "runAsAccount": "system",
+    "runAs32Bit": false,
+    "enforceSignatureCheck": false
+}
