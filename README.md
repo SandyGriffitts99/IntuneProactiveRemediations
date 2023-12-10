@@ -6,7 +6,7 @@ This repository contains scripts for Microsoft Intune Proactive Remediations.
 
 To import a Microsoft Intune Proactive Remediations, clone this repository and run the ```Import-ProactiveRemediation.ps1``` script from the tools directory.
 
-To add a Microsoft Intune Proactive Remediation, fork this repository, add in your Proactive Remediations by using the ```New-ProactiveRemediation``` script and submit a pull request.
+To add a Microsoft Intune Proactive Remediation, fork this repository, add in your Proactive Remediations by using the ```New-ProactiveRemediation.ps1``` script and submit a pull request.
 
 ## Scripts & Tools
 There are a few Powershell script that can help with building, adding & validating a Proactive Remediations.
@@ -42,7 +42,7 @@ If additional properties are added, these will not be imported into Microsoft In
 If you have an issue, please raise a Github issue. When creating a issue, please add as much information as possible (code snippets, error messages, etc).
 
 ## Authors and acknowledgment
-This project uses the following powershell modules:
+This project uses the following Powershell modules:
 - [MSAL.PS](https://github.com/AzureAD/MSAL.PS/)
 - [Microsoft.Powershell.ConsoleGuiTools](https://github.com/PowerShell/GraphicalTools/)
 
