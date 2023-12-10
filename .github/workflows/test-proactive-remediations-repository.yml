@@ -1,5 +1,5 @@
 name: Proactive Remediations Repository Tests
-on: push
+on: [push, pull_request]
 
 jobs:
   test-proactive-remediations-repository:
