@@ -33,5 +33,5 @@ foreach ($folder in $folders) {
 if ($TestFailed) {
     Throw "One or more folders are not valid"
 } else {
-    Write-Verbose -Message "All folders are valid Proactive Remediation"
+    Write-Output -Message "All folders are valid Proactive Remediation"
 }
